@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="js/echart/jquery.min.js"></script>
+    <script type="text/javascript" src="js/echart/echarts.js"></script>
+    <script type="text/javascript">
+        /**
+         * 获取参数值
+         * @param name
+         * @returns {*}
+         */
+        function getValue(name) {
+            var str = window.location.search;
+            var res;
+            if (str.indexOf(name) != -1) {
+                var pos_start = str.indexOf(name) + name.length + 1;
+                var pos_end;
+                if (str.indexOf("&") == -1) {
+                    res = str.substr(pos_start, str.length);
+                } else {
+                    pos_end = str.index("&");
+                    res = str.substr(pos_start, pos_end);
+                }
+            }
+            return res;
+        }
+        var fundCode = getValue("code");
+        var temp;
+        var time;
+        var objectJson = {code: fundCode};
+        $.post("http://localhost:8082/rest/fundNetworth", JSON.stringify(objectJson), function (data) {
+            alert(JSON.stringify(data));
+            for (var index = 0; index < data.fundNetWorthList.length; index++) {
+                time[index] = data.fundNetWorthList[index].time;
+                temp[index] = data.fundNetWorthList[index].netWorth;
+            }
+            var myChart = echarts.init(document.getElementById('main'));
+            var option = {
+                tooltip: {},
+                xAxis: {
+                    data: time
+                },
+                yAxis: {position: 'right'},
+                dataZoom: {
+                    show: true,
+                    start: 80,
+                    end: 100
+                },
+                series: [{
+                    type: 'line',
+                    showAllSymbol: true,
+                    smooth: true,
+                    data: temp
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        }, "json");
+    </script>
+</head>
+<body>
+<div id="main" style="width:1500px;height:700px"></div>
+</body>
+</html>
