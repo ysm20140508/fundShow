@@ -26,14 +26,13 @@
             return res;
         }
         var fundCode = getValue("code");
-        var temp;
-        var time;
+        var temp = new Array();
+        var time = new Array();
         var objectJson = {code: fundCode};
         $.post("http://localhost:8082/rest/fundNetworth", JSON.stringify(objectJson), function (data) {
-            alert(JSON.stringify(data));
-            for (var index = 0; index < data.fundNetWorthList.length; index++) {
-                time[index] = data.fundNetWorthList[index].time;
-                temp[index] = data.fundNetWorthList[index].netWorth;
+            for (var i = 0; i < data.fundNetWorthList.length; i++) {
+                time[i] = data.fundNetWorthList[i].time;
+                temp[i] = data.fundNetWorthList[i].netWorth;
             }
             var myChart = echarts.init(document.getElementById('main'));
             var option = {
@@ -56,10 +55,12 @@
             };
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
+            $("#code").html(fundCode + "-->曲线图");
         }, "json");
     </script>
 </head>
 <body>
-<div id="main" style="width:1500px;height:700px"></div>
+<p id="code" style="color:#122b40;padding-left:800px;"></p>
+<div id="main" style="width:1700px;height:800px"></div>
 </body>
 </html>

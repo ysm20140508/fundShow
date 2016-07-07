@@ -2,13 +2,20 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/ztree/zTreeStyle.css"/>
+    <link rel="stylesheet" href="css/ztree/demo.css"/>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/ztree/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="js/ztree/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/ztree/jquery.ztree.exedit.js"></script>
+    <script type="text/javascript" src="js/ztree/jquery.ztree.excheck.js"></script>
     <script type="text/javascript">
         var zTree;
         var demoIframe;
         var setting = {
+            edit: {
+                enable: true,
+                showRemoveBtn: true
+            },
             view: {
                 dblClickExpand: false,
                 showLine: true,
@@ -64,8 +71,8 @@
 <body>
 <TABLE border=0 height=1600px align=left>
     <TR>
-        <TD width=460px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
-            <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+        <TD width=260px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+            <ul id="tree" class="ztree" style="float:left;height:810px;width:260px;overflow:auto;"></ul>
         </TD>
         <TD width=100% align=left valign=top>
             <IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%
